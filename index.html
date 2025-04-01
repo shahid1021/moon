@@ -31,8 +31,10 @@
         }
         
         .moon {
-            width: 150px;
-            height: 150px;
+            width: 30vw;
+            height: 30vw;
+            max-width: 150px;
+            max-height: 150px;
             background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/240px-FullMoon2010.jpg') no-repeat center/cover;
             border-radius: 50%;
             position: absolute;
@@ -56,9 +58,11 @@
         }
 
         .moved {
-            left: 0%;
-            width: 600px;
-            height: 600px;
+            left: 10%;
+            width: 50vw;
+            height: 50vw;
+            max-width: 300px;
+            max-height: 300px;
             transform: translate(-50%, -50%) rotate(360deg);
         }
 
@@ -68,15 +72,14 @@
             left: 100%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 18px;
+            font-size: 4vw;
             text-align: center;
             display: none;
-            white-space: normal;
-            max-width: 350px;
+            max-width: 80vw;
             line-height: 1.5;
             transition: left 1.5s ease-in-out;
             background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
             font-family: "Poppins", sans-serif;
             font-weight: 500;
@@ -87,6 +90,21 @@
             left: 60%;
             display: block;
         }
+
+        @media (max-width: 600px) {
+            .moved {
+                left: 5%;
+                width: 40vw;
+                height: 40vw;
+                max-width: 250px;
+                max-height: 250px;
+            }
+            .hidden-message {
+                font-size: 14px;
+                max-width: 90vw;
+                left: 70%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -96,22 +114,18 @@
 
     <script>
         const messages = [
-            "“God does not burden any soul with more than it can bear.”   [Quran 2:286]",
-            " “Do not lose heart or despair- if you are true believers you have the upper hand-” [Quran 3:139].",
-            "“So truly where there is hardship there is also ease;” [Quran 94:5].",
-            "“And will provide for them from an unexpected source; God will be enough for those who put their trust in Him. God achieves His purpose; God has set a due measure for everything.” [Quran 65:3]",
-            " “He knows what is in every heart.” [Quran 67:13].",
-            " “You who believe, seek help through steadfastness and prayer, for God is with the steadfast.” [Quran 2:153]"
+            "God does not burden any soul with more than it can bear. [Quran 2:286]",
+            "Do not lose heart or despair- if you are true believers you have the upper hand. [Quran 3:139]",
+            "So truly where there is hardship there is also ease. [Quran 94:5]",
+            "And will provide for them from an unexpected source; God will be enough for those who put their trust in Him. [Quran 65:3]",
+            "He knows what is in every heart. [Quran 67:13]",
+            "You who believe, seek help through steadfastness and prayer, for God is with the steadfast. [Quran 2:153]"
         ];
         
         const messageElement = document.getElementById('hidden-message');
-        
         function setRandomMessage() {
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            const formattedMessage = randomMessage.split('\n\n').map(para => `<p>${para}</p>`).join('');
-            messageElement.innerHTML = formattedMessage;
+            messageElement.innerHTML = messages[Math.floor(Math.random() * messages.length)];
         }
-
         setRandomMessage();
 
         document.getElementById('moon').addEventListener('click', function() {
