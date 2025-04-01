@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Animation & Hidden Message</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .moon {
+            width: 150px;
+            height: 150px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/240px-FullMoon2010.jpg') no-repeat center/cover;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 1.5s ease-in-out, left 1.5s ease-in-out, width 1.5s ease-in-out, height 1.5s ease-in-out;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: float 4s ease-in-out infinite, glow 2s infinite alternate;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+            100% { transform: translate(-50%, -50%) translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
+        }
+
+        .moved {
+            left: 0%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+
+        .hidden-message {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            display: none;
+            white-space: normal;
+            max-width: 350px;
+            line-height: 1.5;
+            transition: left 1.5s ease-in-out;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.7);
+        }
+
+        .show-message {
+            left: 60%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="moon" id="moon"></div>
+    <div class="hidden-message" id="hidden-message"></div>
+
+    <script>
+        const messages = [
+            "Hey, amazing girl! 🌸\n\nI know doubts can creep in sometimes, but let me tell you this—you are stronger than you think and more capable than you realize. Every great success story started with someone who wondered, 'Can I really do this?' And the answer was always YES!",
+            "You have a fire inside you, a unique strength that no one else has. Challenges will come, but they are just stepping stones, not roadblocks.\n\nKeep going, keep believing, and never forget—you are meant for greatness. One step at a time, one day at a time. You will succeed. And I can’t wait to see you shine! ✨💪💖",
+            "Hey, you! 💖✨\n\nI know you’re feeling unsure, but let me remind you—you are capable, you are strong, and you are unstoppable! Every great achievement starts with someone who doubted themselves but kept going anyway. And that’s exactly what you’re doing!"
+        ];
+        
+        const messageElement = document.getElementById('hidden-message');
+        
+        function setRandomMessage() {
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const formattedMessage = randomMessage.split('\n\n').map(para => `<p>${para}</p>`).join('');
+            messageElement.innerHTML = formattedMessage;
+        }
+
+        setRandomMessage();
+
+        document.getElementById('moon').addEventListener('click', function() {
+            this.classList.toggle('moved');
+            if (this.classList.contains('moved')) {
+                messageElement.classList.add('show-message');
+            } else {
+                messageElement.classList.remove('show-message');
+            }
+        });
+    </script>
+</body>
+</html>
